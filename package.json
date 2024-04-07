@@ -1,0 +1,22 @@
+{
+  "name": "edge-tts-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "repository": "git@github.com:HerbertHe/edge-tts-server.git",
+  "author": "HerbertHe <Herbert.He0229@gmail.com>",
+  "license": "GPL-3.0",
+  "scripts": {
+    "serve": "node dist/index.js"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.15.0",
+    "@types/koa-static": "^4.0.4",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.4"
+  },
+  "dependencies": {
+    "koa": "^2.15.2",
+    "koa-static": "^5.0.0"
+  }
+}
