@@ -31,6 +31,14 @@ Then, run the following command:
 - install `edge-tts`: `pip3 install edge-tts`
 - run server: `yarn serve`
 
+## API
+
+| Method | Path      | Query                     | Description                |
+| ------ | --------- | ------------------------- | -------------------------- |
+| GET    | `/voices` | `search`(optional)        | Get all supported voices   |
+| GET    | `tts`     | `text`, `voice`(required) | Convert text to speech     |
+| GET    | `/clean`  | `secret`(required)        | Clean the exised mp3 files |
+
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=HerbertHe/edge-tts-server&type=Date)](https://star-history.com/#HerbertHe/edge-tts-server&Date)
