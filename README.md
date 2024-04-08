@@ -1,5 +1,11 @@
 # edge-tts-server
 
+[![Docker Build](https://img.shields.io/docker/automated/herberthe0229/edge-tts-server?style=flat-square)](https://hub.docker.com/r/herberthe0229/edge-tts-server)
+[![Docker Version](https://img.shields.io/docker/v/herberthe0229/edge-tts-server/latest?style=flat-square)](https://hub.docker.com/r/herberthe0229/edge-tts-server)
+[![Docker Image](https://img.shields.io/docker/image-size/herberthe0229/edge-tts-server/latest?style=flat-square)](https://hub.docker.com/r/herberthe0229/edge-tts-server)
+[![Docker Pulls](https://img.shields.io/docker/pulls/herberthe0229/edge-tts-server?style=flat-square)](https://hub.docker.com/r/herberthe0229/edge-tts-server)
+[![Docker Stars](https://img.shields.io/docker/stars/herberthe0229/edge-tts-server?style=flat-square)](https://hub.docker.com/r/herberthe0229/edge-tts-server)
+
 Deploy [edge-tts](https://github.com/rany2/edge-tts) with docker.
 
 ## Getting Started
@@ -24,6 +30,10 @@ Then, run the following command:
 - activate venv: `source .venv/bin/activate`
 - install `edge-tts`: `pip3 install edge-tts`
 - run server: `yarn serve`
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=HerbertHe/edge-tts-server&type=Date)](https://star-history.com/#HerbertHe/edge-tts-server&Date)
 
 ## LICENSE
 
