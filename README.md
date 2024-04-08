@@ -22,7 +22,7 @@ docker run -p 8088:8088 herberthe0229/edge-tts-server
 
 First, you need to setup python environment.
 
-Then, run the following command:
+Then, run the following commands:
 
 - install dependencies: `yarn install`
 - build scripts: `yarn build`
