@@ -27,6 +27,6 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          platforms: linux/arm64,linux/amd64,linux/arm/v8,linux/arm/v7
+          platforms: linux/arm64,linux/amd64,linux/arm/v7
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/edge-tts-server:latest
