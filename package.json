@@ -7,16 +7,25 @@
   "author": "HerbertHe <Herbert.He0229@gmail.com>",
   "license": "GPL-3.0",
   "scripts": {
-    "serve": "node dist/index.js"
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "serve": "node dist/index.js",
+    "docker:build": "docker buildx build -t herberthe0229/edge-tts-server:latest --platform=linux/arm64 . --load",
+    "docker:push": "docker buildx build -t herberthe0229/edge-tts-server:dev --platform=linux/arm64,linux/amd64,linux/arm/v8,linux/arm/v7 . --push",
+    "py:venv": "python3 -m venv .venv",
+    "py:active": "source .venv/bin/activate",
+    "py:de": "deactivate"
   },
   "devDependencies": {
     "@types/koa": "^2.15.0",
+    "@types/koa-router": "^7.4.8",
     "@types/koa-static": "^4.0.4",
     "tsup": "^8.0.2",
     "typescript": "^5.4.4"
   },
   "dependencies": {
     "koa": "^2.15.2",
+    "koa-router": "^12.0.1",
     "koa-static": "^5.0.0"
   }
 }

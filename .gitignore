@@ -1,3 +1,7 @@
+.venv
+public
+.DS_Store
+
 # Logs
 logs
 *.log
