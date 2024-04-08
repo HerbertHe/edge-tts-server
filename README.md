@@ -36,7 +36,7 @@ Then, run the following command:
 | Method | Path      | Query                     | Description                |
 | ------ | --------- | ------------------------- | -------------------------- |
 | GET    | `/voices` | `search`(optional)        | Get all supported voices   |
-| GET    | `/tts`     | `text`, `voice`(required) | Convert text to speech     |
+| GET    | `/tts`    | `text`, `voice`(required) | Convert text to speech     |
 | GET    | `/clean`  | `secret`(required)        | Clean the exised mp3 files |
 
 ## Star History
