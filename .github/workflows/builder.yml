@@ -4,6 +4,13 @@ on:
   push:
     branches:
       - main
+    paths:
+      - ".github/workflows/builder.yml"
+      - "src/**"
+      - "Dockerfile"
+      - "package.json"
+      - "yarn.lock"
+      - ".gitignore"
 
 jobs:
   build:
