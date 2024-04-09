@@ -16,16 +16,23 @@ const App = () => {
         voice: "",
     })
 
-    const [voices, setVoices] = useState<string[]>([])
+    const [voices, setVoices] = useState<string[]>(
+        innerVoices.filter((v) =>
+            v.startsWith(localStorage.getItem("prefer-lang") || langs[0])
+        )
+    )
     const [audioUrl, setAudioUrl] = useState<string>("")
+    const [generating, setGenerating] = useState<boolean>(false)
 
     const audioRef = useRef<HTMLAudioElement>(null)
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         if (!!formData.text && !!formData.voice) {
+            setGenerating(true)
             fetch(`/tts?text=${formData.text}&voice=${formData.voice}`)
                 .then((res) => {
+                    setGenerating(false)
                     if (res.ok) {
                         res.json().then((data) => {
                             setAudioUrl(data.url)
@@ -56,6 +63,7 @@ const App = () => {
         setFormData((draft) => {
             draft.voice = event.target.value
         })
+        localStorage.setItem("prefer-voice", event.target.value)
     }
 
     const handleLangChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -65,6 +73,8 @@ const App = () => {
         setFormData((draft) => {
             draft.voice = voices[0]
         })
+        localStorage.setItem("prefer-lang", lang)
+        localStorage.setItem("prefer-voice", voices[0])
     }
 
     const handlePlay = () => {
@@ -111,6 +121,9 @@ const App = () => {
                             title="Select language"
                             id="language"
                             onChange={handleLangChange}
+                            defaultValue={
+                                localStorage.getItem("prefer-lang") || langs[0]
+                            }
                             required
                         >
                             {langs.map((l) => (
@@ -125,6 +138,10 @@ const App = () => {
                                 title="Select voice"
                                 id="voice"
                                 onChange={handleVoiceChange}
+                                defaultValue={
+                                    localStorage.getItem("prefer-voice") ||
+                                    voices[0]
+                                }
                                 required
                             >
                                 {voices.map((voice) => (
@@ -139,7 +156,7 @@ const App = () => {
                     <div className="mt-3 w-full grid grid-cols-3 gap-2">
                         <button
                             type="submit"
-                            className="bg-indigo-600 text-white w-full p-3 rounded-lg"
+                            className="bg-indigo-600 text-white w-full p-3 rounded-lg hover:bg-indigo-800"
                             title="get voice"
                         >
                             <span
@@ -148,7 +165,7 @@ const App = () => {
                             ></span>
                         </button>
                         <button
-                            className="bg-indigo-600 text-white w-full p-3 rounded-lg disabled:bg-indigo-600/20"
+                            className="bg-indigo-600 text-white w-full p-3 rounded-lg disabled:bg-indigo-600/20 hover:bg-indigo-800"
                             onClick={handlePlay}
                             disabled={!audioUrl}
                             type="button"
@@ -160,7 +177,7 @@ const App = () => {
                             ></span>
                         </button>
                         <button
-                            className="bg-indigo-600 text-white w-full p-3 rounded-lg disabled:bg-indigo-600/20"
+                            className="bg-indigo-600 text-white w-full p-3 rounded-lg disabled:bg-indigo-600/20 hover:bg-indigo-800"
                             onClick={handleSave}
                             disabled={!audioUrl}
                             type="button"
@@ -195,6 +212,11 @@ const App = () => {
                     ></span>
                 </a>
             </footer>
+            {generating && (
+                <div className="fixed top-0 left-0 w-full h-full bg-black/80 text-white flex justify-center items-center z-999">
+                    Generating speech...
+                </div>
+            )}
         </div>
     )
 }
