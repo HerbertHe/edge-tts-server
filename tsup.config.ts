@@ -4,5 +4,6 @@ export const tsup = defineConfig({
     entry: ["src/index.ts"],
     clean: true,
     minify: true,
-    format: ["esm"]
+    format: ["esm"],
+    outDir: "dist"
 })

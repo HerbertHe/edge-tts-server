@@ -7,25 +7,46 @@
   "author": "HerbertHe <Herbert.He0229@gmail.com>",
   "license": "GPL-3.0",
   "scripts": {
-    "dev": "tsup --watch",
-    "build": "tsup",
-    "serve": "node dist/index.js",
+    "dev": "yarn back:dev & yarn serve:dev & yarn front:dev",
+    "build": "NODE_ENV=production yarn back:build && yarn front:build",
     "docker:build": "docker buildx build -t herberthe0229/edge-tts-server:latest --platform=linux/arm64 . --load",
     "docker:push": "docker buildx build -t herberthe0229/edge-tts-server:dev --platform=linux/arm64,linux/amd64,linux/arm/v8,linux/arm/v7 . --push",
     "py:venv": "python3 -m venv .venv",
     "py:active": "source .venv/bin/activate",
-    "py:de": "deactivate"
+    "py:de": "deactivate",
+    "front:dev": "vite",
+    "front:build": "tsc && vite build",
+    "front:preview": "vite preview",
+    "back:dev": "tsup --watch",
+    "back:build": "tsup",
+    "serve:dev": "nodemon dist/index.js",
+    "serve": "node dist/index.js"
   },
   "devDependencies": {
+    "@iconify-json/mdi": "^1.1.66",
+    "@iconify/tailwind": "^0.1.4",
+    "@types/file-saver": "^2.0.7",
     "@types/koa": "^2.15.0",
     "@types/koa-router": "^7.4.8",
     "@types/koa-static": "^4.0.4",
+    "@types/react": "^18.2.74",
+    "@types/react-dom": "^18.2.24",
+    "autoprefixer": "^10.4.19",
+    "nodemon": "^3.1.0",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
     "tsup": "^8.0.2",
-    "typescript": "^5.4.4"
+    "typescript": "^5.4.4",
+    "vite": "^5.2.8"
   },
   "dependencies": {
+    "file-saver": "^2.0.5",
+    "immer": "^10.0.4",
     "koa": "^2.15.2",
     "koa-router": "^12.0.1",
-    "koa-static": "^5.0.0"
+    "koa-static": "^5.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "use-immer": "^0.9.0"
   }
 }

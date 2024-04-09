@@ -2,14 +2,28 @@ import Koa from "koa"
 import Static from "koa-static"
 import Router from "koa-router"
 
+import fs from "fs"
+import path from "path"
+
 import { getVoiceList } from "./lib/voice"
 import { generateTTS } from "./lib/generator"
-import { cleanPublic } from "./lib/clean"
+import { cleanVoices } from "./lib/clean"
 
 const app = new Koa()
 const router = new Router()
 
 app.use(Static("public"))
+
+router.get("/", (ctx) => {
+    if (process.env.NODE_ENV === "production") {
+        ctx.body = fs.readFileSync(
+            path.resolve("public", "index.html"),
+            "utf-8"
+        )
+    } else {
+        ctx.redirect("https://localhost:5173")
+    }
+})
 
 // 获取声音列表
 router.get("/voices", async (ctx) => {
@@ -53,11 +67,12 @@ router.get("/tts", (ctx) => {
     }
 
     try {
+        cleanVoices()
         const result = generateTTS(decodeURIComponent(text), voice)
         ctx.body = {
             url: result,
         }
-    } catch (e) {
+    } catch (e: any) {
         ctx.status = 500
         ctx.body = {
             error: e.message,
@@ -76,10 +91,10 @@ router.get("/clean", (ctx) => {
         return
     }
 
-    if (!process.env.CLEAN_SECRET){
+    if (!process.env.CLEAN_SECRET) {
         ctx.status = 500
         ctx.body = {
-            error: "clean_secret is not set"
+            error: "clean_secret is not set",
         }
         return
     }
@@ -93,7 +108,7 @@ router.get("/clean", (ctx) => {
     }
 
     try {
-        cleanPublic()
+        cleanVoices()
         ctx.body = "Cleaned"
     } catch (e) {
         ctx.status = 500

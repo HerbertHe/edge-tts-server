@@ -1,0 +1,4 @@
+/* 支持 tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

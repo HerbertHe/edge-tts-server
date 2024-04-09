@@ -1,4 +1,4 @@
-import { execSync } from "child_process"
+// import { execSync } from "child_process"
 
 export const getVoiceList = () => {
     // const result = execSync(`edge-tts --list-voices`).toString()
