@@ -13,7 +13,7 @@ const App = () => {
     // https://github.com/rany2/edge-tts?tab=readme-ov-file#changing-rate-volume-and-pitch
     const [formData, setFormData] = useImmer({
         text: "",
-        voice: "",
+        voice: localStorage.getItem("prefer-voice") || "",
     })
 
     const [voices, setVoices] = useState<string[]>(
@@ -23,6 +23,7 @@ const App = () => {
     )
     const [audioUrl, setAudioUrl] = useState<string>("")
     const [generating, setGenerating] = useState<boolean>(false)
+    const [playing, setPlaying] = useState<boolean>(false)
 
     const audioRef = useRef<HTMLAudioElement>(null)
 
@@ -79,7 +80,13 @@ const App = () => {
 
     const handlePlay = () => {
         if (audioRef.current) {
-            audioRef.current.play()
+            if (playing) {
+                setPlaying(false)
+                audioRef.current.pause()
+            } else {
+                setPlaying(true)
+                audioRef.current.play()
+            }
         }
     }
 
@@ -97,6 +104,12 @@ const App = () => {
     useEffect(() => {
         setAudioUrl("")
     }, [formData])
+
+    useEffect(() => {
+        audioRef.current?.addEventListener("ended", () => {
+            setPlaying(false)
+        })
+    }, [])
 
     return (
         <div className="flex flex-col justify-center items-center h-screen bg-indigo-950">
@@ -171,10 +184,17 @@ const App = () => {
                             type="button"
                             title="play"
                         >
-                            <span
-                                className="icon-[mdi--speak]"
-                                style={{ width: "2rem", height: "1.5rem" }}
-                            ></span>
+                            {playing ? (
+                                <span
+                                    className="icon-[mdi--stop-circle-outline]"
+                                    style={{ width: "2rem", height: "1.5rem" }}
+                                ></span>
+                            ) : (
+                                <span
+                                    className="icon-[mdi--speak]"
+                                    style={{ width: "2rem", height: "1.5rem" }}
+                                ></span>
+                            )}
                         </button>
                         <button
                             className="bg-indigo-600 text-white w-full p-3 rounded-lg disabled:bg-indigo-600/20 hover:bg-indigo-800"
